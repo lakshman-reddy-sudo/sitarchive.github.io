@@ -123,16 +123,21 @@
     <!-- Visitor counter -->
     <script>
     (function() {
-        var api = 'https://api.counterapi.dev/v1/sitarchive/visits';
-        var counted = sessionStorage.getItem('vc');
-        fetch(counted ? api : api + '/up')
-            .then(function(r) { return r.json(); })
-            .then(function(d) {
-                if (!counted) sessionStorage.setItem('vc', '1');
-                var el = document.getElementById('visitor-count');
-                if (el && d.count != null) el.textContent = Number(d.count).toLocaleString();
-            })
-            .catch(function() {});
+        var el = document.getElementById('visitor-count');
+        var stored = sessionStorage.getItem('vc');
+        if (stored) {
+            if (el) el.textContent = Number(stored).toLocaleString();
+        } else {
+            fetch('https://api.counterapi.dev/v1/sitarchive/visits/up')
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    if (d.count != null) {
+                        sessionStorage.setItem('vc', d.count);
+                        if (el) el.textContent = Number(d.count).toLocaleString();
+                    }
+                })
+                .catch(function() {});
+        }
     })();
     </script>
 
