@@ -128,7 +128,7 @@
         if (stored) {
             if (el) el.textContent = Number(stored).toLocaleString();
         } else {
-            fetch('https://api.counterapi.dev/v2/lakshman-reddys-team-4358/first-counter-4358/up', { headers: { 'Authorization': 'Bearer ut_oaIP1p52s7ygY95RFzQ0Od4mLDUifbcDO7g1pMWT' } })
+            fetch('https://api.counterapi.dev/v1/sitarchive/visits/up')
                 .then(function(r) { return r.json(); })
                 .then(function(d) {
                     if (d.count != null) {
