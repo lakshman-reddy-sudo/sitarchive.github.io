@@ -133,18 +133,17 @@
     <script>
     (function() {
         var el = document.getElementById('visitor-count');
-        var stored = sessionStorage.getItem('vc');
-        if (stored) {
-            if (el) el.textContent = Number(stored).toLocaleString();
-        } else {
-            fetch('https://api.counterapi.dev/v1/sitarchive/visits/up')
+        var api = 'https://api.counterapi.dev/v1/sitarchive/visits';
+        if (!localStorage.getItem('vc_visited')) {
+            localStorage.setItem('vc_visited', '1');
+            fetch(api + '/up')
                 .then(function(r) { return r.json(); })
-                .then(function(d) {
-                    if (d.count != null) {
-                        sessionStorage.setItem('vc', d.count);
-                        if (el) el.textContent = Number(d.count).toLocaleString();
-                    }
-                })
+                .then(function(d) { if (el && d.count != null) el.textContent = Number(d.count).toLocaleString(); })
+                .catch(function() {});
+        } else {
+            fetch(api + '/')
+                .then(function(r) { return r.json(); })
+                .then(function(d) { if (el && d.count != null) el.textContent = Number(d.count).toLocaleString(); })
                 .catch(function() {});
         }
     })();
