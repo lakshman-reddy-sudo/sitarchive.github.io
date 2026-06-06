@@ -112,17 +112,19 @@
         </div>
     </div>
     <!-- Visitor counter -->
-    <script>window.goatcounter = { path: '/' };</script>
-    <script data-goatcounter="https://sitarchive.goatcounter.com/count"
-            async src="//gc.zgo.at/count.js"></script>
     <script>
-        fetch('https://sitarchive.goatcounter.com/counter/%2F.json')
+    (function() {
+        var api = 'https://api.counterapi.dev/v1/sitarchive/visits';
+        var counted = sessionStorage.getItem('vc');
+        fetch(counted ? api : api + '/up')
             .then(function(r) { return r.json(); })
             .then(function(d) {
+                if (!counted) sessionStorage.setItem('vc', '1');
                 var el = document.getElementById('visitor-count');
                 if (el && d.count != null) el.textContent = Number(d.count).toLocaleString();
             })
             .catch(function() {});
+    })();
     </script>
 
     <!-- Navigation -->
