@@ -113,6 +113,30 @@
 <body
     class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-display antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white">
 
+    <!-- Visitor Counter Bar -->
+    <div id="visitor-bar" class="w-full bg-bg-light-secondary dark:bg-bg-dark-secondary border-b border-border-light dark:border-border-dark py-1.5">
+        <div class="flex items-center justify-center gap-2 text-xs text-text-light-muted dark:text-text-dark-muted">
+            <span class="material-symbols-outlined text-primary" style="font-size:14px;">people</span>
+            <span>Total Visitors: <span id="visitor-count" class="font-semibold text-primary">—</span></span>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var key = 'sit-archive-counted';
+            var url = sessionStorage.getItem(key)
+                ? 'https://api.countapi.xyz/get/sitarchive-github-io/visits'
+                : 'https://api.countapi.xyz/hit/sitarchive-github-io/visits';
+            fetch(url)
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!sessionStorage.getItem(key)) sessionStorage.setItem(key, '1');
+                    var el = document.getElementById('visitor-count');
+                    if (el) el.textContent = Number(d.value).toLocaleString();
+                })
+                .catch(function () {});
+        })();
+    </script>
+
     <!-- Navigation -->
     <nav
         class="sticky top-0 z-50 w-full border-b border-border-light dark:border-border-dark bg-bg-light/95 dark:bg-bg-dark/95 backdrop-blur-md">
@@ -210,6 +234,74 @@
         <!-- Changelog Timeline -->
         <section class="w-full py-8 pb-20">
             <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+
+                <!-- June 2026 -->
+                <div class="mb-12 animate-on-scroll">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-white">
+                            <span class="material-symbols-outlined text-[24px]">calendar_month</span>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold">June 2026</h2>
+                            <p class="text-sm text-text-light-muted dark:text-text-dark-muted">Latest updates</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 ml-6 relative stagger-children">
+                        <div class="timeline-line"></div>
+
+                        <!-- Visitor Counter -->
+                        <div class="relative pl-12 animate-on-scroll">
+                            <div
+                                class="absolute left-0 top-1 w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                <span
+                                    class="material-symbols-outlined text-[16px] text-green-600 dark:text-green-400">people</span>
+                            </div>
+                            <div
+                                class="rounded-xl border border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary p-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span
+                                        class="text-xs font-medium text-text-light-muted dark:text-text-dark-muted">Jun
+                                        6, 2026</span>
+                                    <span
+                                        class="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium">New
+                                        Feature</span>
+                                </div>
+                                <h3 class="text-lg font-bold mb-2">Visitor Counter Added</h3>
+                                <p class="text-sm text-text-light-muted dark:text-text-dark-muted">
+                                    Added a live visitor counter bar at the top of all pages. The counter tracks unique
+                                    session-based visits and is displayed site-wide with the matching theme.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 2026 Papers Banner -->
+                        <div class="relative pl-12 animate-on-scroll">
+                            <div
+                                class="absolute left-0 top-1 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                                <span
+                                    class="material-symbols-outlined text-[16px] text-amber-600 dark:text-amber-400">update</span>
+                            </div>
+                            <div
+                                class="rounded-xl border border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary p-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span
+                                        class="text-xs font-medium text-text-light-muted dark:text-text-dark-muted">Jun
+                                        6, 2026</span>
+                                    <span
+                                        class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs font-medium">Announcement</span>
+                                </div>
+                                <h3 class="text-lg font-bold mb-2">2026 Papers Coming Soon</h3>
+                                <p class="text-sm text-text-light-muted dark:text-text-dark-muted">
+                                    Updated the status badge across all pages to reflect that 2026 exam papers are
+                                    currently being collected and will be uploaded soon. The hero badge now reads
+                                    "Updating with 2026 papers soon".
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
                 <!-- January 2026 -->
                 <div class="mb-12 animate-on-scroll">

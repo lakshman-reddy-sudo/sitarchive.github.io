@@ -265,6 +265,30 @@
 <body
     class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-display antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white">
 
+    <!-- Visitor Counter Bar -->
+    <div id="visitor-bar" class="w-full bg-bg-light-secondary dark:bg-bg-dark-secondary border-b border-border-light dark:border-border-dark py-1.5">
+        <div class="flex items-center justify-center gap-2 text-xs text-text-light-muted dark:text-text-dark-muted">
+            <span class="material-symbols-outlined text-primary" style="font-size:14px;">people</span>
+            <span>Total Visitors: <span id="visitor-count" class="font-semibold text-primary">—</span></span>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var key = 'sit-archive-counted';
+            var url = sessionStorage.getItem(key)
+                ? 'https://api.countapi.xyz/get/sitarchive-github-io/visits'
+                : 'https://api.countapi.xyz/hit/sitarchive-github-io/visits';
+            fetch(url)
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!sessionStorage.getItem(key)) sessionStorage.setItem(key, '1');
+                    var el = document.getElementById('visitor-count');
+                    if (el) el.textContent = Number(d.value).toLocaleString();
+                })
+                .catch(function () {});
+        })();
+    </script>
+
     <!-- Navigation -->
     <nav
         class="sticky top-0 z-50 w-full border-b border-border-light dark:border-border-dark bg-bg-light/95 dark:bg-bg-dark/95 backdrop-blur-md">
@@ -358,7 +382,7 @@
                                     class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            Updated with 2025 Papers
+                            Updating with 2026 papers soon
                         </div>
 
                         <h1
