@@ -120,23 +120,18 @@
             <span>Total Visitors: <span id="visitor-count" class="font-semibold text-primary">—</span></span>
         </div>
     </div>
-    <!-- GoatCounter analytics -->
+    <!-- Visitor counter -->
+    <script>window.goatcounter = { path: '/' };</script>
     <script data-goatcounter="https://lakshmanreddy969.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
     <script>
-        (function () {
-            if (!sessionStorage.getItem('gc-session-counted')) {
-                new Image().src = 'https://lakshmanreddy969.goatcounter.com/count?p=/total-visits&t=Total+Visits';
-                sessionStorage.setItem('gc-session-counted', '1');
-            }
-            fetch('https://lakshmanreddy969.goatcounter.com/counter/%2Ftotal-visits.json')
-                .then(function (r) { return r.json(); })
-                .then(function (d) {
-                    var el = document.getElementById('visitor-count');
-                    if (el) el.textContent = d.count || '—';
-                })
-                .catch(function () {});
-        })();
+        fetch('https://lakshmanreddy969.goatcounter.com/counter/%2F.json')
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                var el = document.getElementById('visitor-count');
+                if (el) el.textContent = d.count || '—';
+            })
+            .catch(function() {});
     </script>
 
     <!-- Navigation -->
