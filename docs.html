@@ -148,18 +148,25 @@
             <span>Total Visitors: <span id="visitor-count" class="font-semibold text-primary">—</span></span>
         </div>
     </div>
+    <!-- GoatCounter analytics -->
+    <script data-goatcounter="https://lakshmanreddy969.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
     <script>
         (function () {
-            var key = 'sit-archive-counted';
-            var url = sessionStorage.getItem(key)
-                ? 'https://api.countapi.xyz/get/sitarchive-github-io/visits'
-                : 'https://api.countapi.xyz/hit/sitarchive-github-io/visits';
-            fetch(url)
+            if (!sessionStorage.getItem('gc-session-counted')) {
+                var wait = setInterval(function () {
+                    if (window.goatcounter && window.goatcounter.count) {
+                        clearInterval(wait);
+                        window.goatcounter.count({ path: '/total-visits', title: 'Total Visits' });
+                        sessionStorage.setItem('gc-session-counted', '1');
+                    }
+                }, 100);
+            }
+            fetch('https://lakshmanreddy969.goatcounter.com/counter/%2Ftotal-visits.json')
                 .then(function (r) { return r.json(); })
                 .then(function (d) {
-                    if (!sessionStorage.getItem(key)) sessionStorage.setItem(key, '1');
                     var el = document.getElementById('visitor-count');
-                    if (el) el.textContent = Number(d.value).toLocaleString();
+                    if (el && d.count) el.textContent = Number(d.count).toLocaleString();
                 })
                 .catch(function () {});
         })();
