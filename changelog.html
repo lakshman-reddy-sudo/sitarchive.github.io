@@ -126,19 +126,14 @@
     <script>
         (function () {
             if (!sessionStorage.getItem('gc-session-counted')) {
-                var wait = setInterval(function () {
-                    if (window.goatcounter && window.goatcounter.count) {
-                        clearInterval(wait);
-                        window.goatcounter.count({ path: '/total-visits', title: 'Total Visits' });
-                        sessionStorage.setItem('gc-session-counted', '1');
-                    }
-                }, 100);
+                new Image().src = 'https://lakshmanreddy969.goatcounter.com/count?p=/total-visits&t=Total+Visits';
+                sessionStorage.setItem('gc-session-counted', '1');
             }
             fetch('https://lakshmanreddy969.goatcounter.com/counter/%2Ftotal-visits.json')
                 .then(function (r) { return r.json(); })
                 .then(function (d) {
                     var el = document.getElementById('visitor-count');
-                    if (el && d.count) el.textContent = Number(d.count).toLocaleString();
+                    if (el) el.textContent = d.count || '—';
                 })
                 .catch(function () {});
         })();
