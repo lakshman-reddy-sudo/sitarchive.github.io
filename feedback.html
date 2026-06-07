@@ -99,31 +99,22 @@
             transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
 
-        /* Custom select arrow for dark mode */
-        .custom-select {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
-            padding-right: 2.5rem;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
+        .form-card {
+            transition: all 0.2s ease;
         }
 
-        .success-state {
-            animation: fadeInUp 0.5s ease-out forwards;
+        .form-card:hover {
+            transform: translateY(-2px);
         }
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        select option {
+            background-color: #161616;
+            color: #FFFFFF;
+        }
+
+        .dark select option {
+            background-color: #161616;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -228,218 +219,217 @@
     </nav>
 
     <main class="flex-grow">
-        <!-- Hero Section -->
-        <section class="relative w-full overflow-hidden">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Page Header -->
+            <div class="text-center mb-10 animate-on-scroll">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 anim-pulse">
+                    <span class="material-symbols-outlined text-[18px]">rate_review</span>
+                    Your Voice Matters
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Share Your Feedback</h1>
+                <p class="text-text-light-muted dark:text-text-dark-muted max-w-2xl mx-auto">Spotted a missing paper?
+                    Have a suggestion? Found a bug? Fill in the details below and send us an email directly.</p>
+            </div>
+
+            <!-- Instructions Card -->
             <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/10 blur-[100px] rounded-full pointer-events-none">
-            </div>
-
-            <div class="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-                <div class="flex flex-col items-center text-center gap-6">
+                class="mb-8 p-6 rounded-2xl border border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary animate-on-scroll hover-lift-sm">
+                <div class="flex items-start gap-4">
                     <div
-                        class="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-2">
-                        <span class="material-symbols-outlined text-[14px]">rate_review</span>
-                        Your Voice Matters
+                        class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shrink-0">
+                        <span class="material-symbols-outlined text-2xl">info</span>
                     </div>
-
-                    <h1
-                        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl bg-gradient-to-b from-text-light to-text-light/60 dark:from-text-dark dark:to-text-dark/60 bg-clip-text text-transparent pb-2">
-                        Share Your Feedback
-                    </h1>
-
-                    <p
-                        class="max-w-2xl text-lg text-text-light-muted dark:text-text-dark-muted font-light leading-relaxed">
-                        Spotted a missing paper? Have a suggestion? Found a bug? Let us know — we read every message
-                        and use it to make SIT Archive better for everyone.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feedback Form Section -->
-        <section class="w-full py-4 pb-20">
-            <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-
-                <!-- Success Message (hidden by default) -->
-                <div id="success-msg" class="hidden success-state mb-8 rounded-xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-6 flex items-start gap-4">
-                    <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[28px] shrink-0">check_circle</span>
                     <div>
-                        <h3 class="font-bold text-green-800 dark:text-green-300">Feedback received!</h3>
-                        <p class="mt-1 text-sm text-green-700 dark:text-green-400">Thanks for taking the time to write to us. We'll review your message and get back to you if needed.</p>
-                    </div>
-                </div>
-
-                <!-- Form Card -->
-                <div id="form-card" class="rounded-2xl border border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary p-8 animate-on-scroll">
-                    <form id="feedback-form" action="https://formsubmit.co/students.sit.archive@gmail.com" method="POST" novalidate>
-                        <!-- FormSubmit config -->
-                        <input type="hidden" name="_subject" value="SIT Archive Feedback">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_next" value="">
-
-                        <div class="space-y-6">
-                            <!-- Name -->
-                            <div>
-                                <label for="name" class="block text-sm font-semibold mb-2">
-                                    Your Name <span class="text-primary">*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    required
-                                    placeholder="e.g. Rahul Sharma"
-                                    class="w-full rounded-lg border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark px-4 py-3 text-sm placeholder:text-text-light-muted dark:placeholder:text-text-dark-muted focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
-                                />
-                            </div>
-
-                            <!-- Email -->
-                            <div>
-                                <label for="email" class="block text-sm font-semibold mb-2">
-                                    Your Email <span class="text-primary">*</span>
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                    placeholder="e.g. yourname@example.com"
-                                    class="w-full rounded-lg border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark px-4 py-3 text-sm placeholder:text-text-light-muted dark:placeholder:text-text-dark-muted focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
-                                />
-                            </div>
-
-                            <!-- Type -->
-                            <div>
-                                <label for="type" class="block text-sm font-semibold mb-2">
-                                    Feedback Type <span class="text-primary">*</span>
-                                </label>
-                                <select
-                                    id="type"
-                                    name="type"
-                                    required
-                                    class="custom-select w-full rounded-lg border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark px-4 py-3 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
-                                >
-                                    <option value="" disabled selected>Select a category</option>
-                                    <option value="Suggestion">Suggestion</option>
-                                    <option value="Missing Paper / Paper Request">Missing Paper / Paper Request</option>
-                                    <option value="Bug Report">Bug Report</option>
-                                    <option value="Wrong / Incorrect Paper">Wrong / Incorrect Paper</option>
-                                    <option value="General Feedback">General Feedback</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-
-                            <!-- Message -->
-                            <div>
-                                <label for="message" class="block text-sm font-semibold mb-2">
-                                    Message <span class="text-primary">*</span>
-                                </label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    required
-                                    rows="5"
-                                    placeholder="Describe your feedback in detail. For paper requests, mention the institute, branch, year, semester, and subject name."
-                                    class="w-full rounded-lg border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark px-4 py-3 text-sm placeholder:text-text-light-muted dark:placeholder:text-text-dark-muted focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors resize-none"
-                                ></textarea>
-                                <p class="mt-1.5 text-xs text-text-light-muted dark:text-text-dark-muted">Be as specific as possible — it helps us act on your feedback faster.</p>
-                            </div>
-
-                            <!-- Submit -->
-                            <button
-                                type="submit"
-                                id="submit-btn"
-                                class="w-full inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg bg-primary text-white font-bold text-sm tracking-wide shadow-glow hover:bg-primary-hover transition-all"
-                            >
-                                <span class="material-symbols-outlined text-[20px]">send</span>
-                                Send Feedback
-                            </button>
-
-                            <p class="text-center text-xs text-text-light-muted dark:text-text-dark-muted">
-                                Your message goes directly to
-                                <span class="font-medium text-text-light dark:text-text-dark">students.sit.archive@gmail.com</span>
-                            </p>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Info Cards -->
-                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="rounded-xl border border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">schedule</span>
-                        <div>
-                            <h4 class="text-sm font-bold">Response Time</h4>
-                            <p class="mt-1 text-xs text-text-light-muted dark:text-text-dark-muted">We typically review feedback within 1–3 days. Paper additions may take longer.</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl border border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">volunteer_activism</span>
-                        <div>
-                            <h4 class="text-sm font-bold">Want to Contribute?</h4>
-                            <p class="mt-1 text-xs text-text-light-muted dark:text-text-dark-muted">Have papers to share? Head over to the <a href="submit.html" class="text-primary hover:underline font-medium">Submit Papers</a> page.</p>
-                        </div>
+                        <h3 class="font-semibold mb-2">How it works</h3>
+                        <ul class="text-sm text-text-light-muted dark:text-text-dark-muted space-y-1">
+                            <li class="flex items-center gap-2"><span
+                                    class="material-symbols-outlined text-[16px] text-primary">check_circle</span> Fill
+                                in the feedback details below</li>
+                            <li class="flex items-center gap-2"><span
+                                    class="material-symbols-outlined text-[16px] text-primary">check_circle</span> Click
+                                "Send Feedback" to open your email client</li>
+                            <li class="flex items-center gap-2"><span
+                                    class="material-symbols-outlined text-[16px] text-primary">check_circle</span> Your
+                                email will be pre-filled — just hit send!</li>
+                            <li class="flex items-center gap-2"><span
+                                    class="material-symbols-outlined text-[16px] text-primary">check_circle</span> We
+                                read every message and act on it as soon as we can</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Feedback Form -->
+            <form id="feedback-form" class="space-y-6">
+
+                <!-- Your Name -->
+                <div
+                    class="form-card p-6 rounded-2xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark-secondary animate-on-scroll hover-border-glow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Your Name</h3>
+                            <p class="text-xs text-text-light-muted dark:text-text-dark-muted">So we know who we're
+                                talking to</p>
+                        </div>
+                    </div>
+                    <input type="text" id="name" required placeholder="e.g., Rahul Sharma"
+                        class="w-full h-12 px-4 rounded-xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark placeholder-text-light-muted dark:placeholder-text-dark-muted focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" />
+                </div>
+
+                <!-- Your Email -->
+                <div
+                    class="form-card p-6 rounded-2xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark-secondary animate-on-scroll hover-border-glow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0">
+                            <span class="material-symbols-outlined">mail</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Your Email</h3>
+                            <p class="text-xs text-text-light-muted dark:text-text-dark-muted">We'll reply here if
+                                needed</p>
+                        </div>
+                    </div>
+                    <input type="email" id="email" required placeholder="e.g., yourname@example.com"
+                        class="w-full h-12 px-4 rounded-xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark placeholder-text-light-muted dark:placeholder-text-dark-muted focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" />
+                </div>
+
+                <!-- Feedback Type -->
+                <div
+                    class="form-card p-6 rounded-2xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark-secondary animate-on-scroll hover-border-glow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0">
+                            <span class="material-symbols-outlined">category</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Feedback Type</h3>
+                            <p class="text-xs text-text-light-muted dark:text-text-dark-muted">What kind of feedback is
+                                this?</p>
+                        </div>
+                    </div>
+                    <select id="type" required
+                        class="w-full h-12 px-4 rounded-xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                        <option value="">Select a category</option>
+                        <option value="Suggestion">Suggestion</option>
+                        <option value="Missing Paper / Paper Request">Missing Paper / Paper Request</option>
+                        <option value="Bug Report">Bug Report</option>
+                        <option value="Wrong / Incorrect Paper">Wrong / Incorrect Paper</option>
+                        <option value="General Feedback">General Feedback</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Message -->
+                <div
+                    class="form-card p-6 rounded-2xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark-secondary animate-on-scroll hover-border-glow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0">
+                            <span class="material-symbols-outlined">notes</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Message</h3>
+                            <p class="text-xs text-text-light-muted dark:text-text-dark-muted">Describe your feedback in
+                                detail</p>
+                        </div>
+                    </div>
+                    <textarea id="message" rows="5" required
+                        placeholder="e.g., I couldn't find the Data Structures end-sem paper for CSE Sem 3 (2024-28 batch). Could you add it? Or describe a bug you found..."
+                        class="w-full px-4 py-3 rounded-xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark placeholder-text-light-muted dark:placeholder-text-dark-muted focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"></textarea>
+                    <p class="mt-2 text-xs text-text-light-muted dark:text-text-dark-muted">Be as specific as possible
+                        — it helps us act on your feedback faster.</p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button type="submit"
+                        class="flex-1 inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-lg transition-colors shadow-glow-sm hover:shadow-glow">
+                        <span class="material-symbols-outlined">send</span>
+                        Send Feedback
+                    </button>
+                    <button type="reset"
+                        class="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl border border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark-secondary hover:bg-bg-light-tertiary dark:hover:bg-bg-dark-tertiary text-text-light dark:text-text-dark font-medium transition-colors">
+                        <span class="material-symbols-outlined">restart_alt</span>
+                        Reset Form
+                    </button>
+                </div>
+            </form>
+
+            <!-- Info note -->
+            <div
+                class="mt-8 p-5 rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20">
+                <div class="flex items-start gap-3">
+                    <span
+                        class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-xl shrink-0">open_in_new</span>
+                    <div>
+                        <h4 class="font-semibold text-blue-800 dark:text-blue-300 mb-1">Your email client will open</h4>
+                        <p class="text-sm text-blue-700 dark:text-blue-400">Clicking "Send Feedback" will open your
+                            default email app (Gmail, Outlook, etc.) with everything pre-filled. Just hit send!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer
-        class="border-t border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div class="md:col-span-2">
-                    <a class="flex items-center gap-3 mb-4" href="index.html">
-                        <div class="flex size-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-                            <span class="material-symbols-outlined text-[20px]">school</span>
-                        </div>
-                        <span class="text-lg font-bold tracking-tight">SIT Archive</span>
-                    </a>
-                    <p class="text-sm text-text-light-muted dark:text-text-dark-muted leading-relaxed max-w-sm">
-                        Your central hub for previous years' question papers. Built by students, for students.
-                    </p>
+        class="border-t border-border-light dark:border-border-dark bg-bg-light-secondary dark:bg-bg-dark-secondary mt-auto">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">school</span>
+                    <span class="font-bold">SIT Archive</span>
                 </div>
-
-                <div>
-                    <h4 class="text-sm font-bold uppercase tracking-wider mb-4">Quick Links</h4>
-                    <ul class="space-y-3">
-                        <li><a class="text-sm text-text-light-muted dark:text-text-dark-muted hover:text-text-light dark:hover:text-text-dark transition-colors"
-                                href="browse.html">Browse Papers</a></li>
-                        <li><a class="text-sm text-text-light-muted dark:text-text-dark-muted hover:text-text-light dark:hover:text-text-dark transition-colors"
-                                href="about.html">About Us</a></li>
-                        <li><a class="text-sm text-text-light-muted dark:text-text-dark-muted hover:text-text-light dark:hover:text-text-dark transition-colors"
-                                href="faq.html">FAQ</a></li>
-                        <li><a class="text-sm text-text-light-muted dark:text-text-dark-muted hover:text-text-light dark:hover:text-text-dark transition-colors"
-                                href="feedback.html">Feedback</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-sm font-bold uppercase tracking-wider mb-4">Legal</h4>
-                    <ul class="space-y-3">
-                        <li><a class="text-sm text-text-light-muted dark:text-text-dark-muted hover:text-text-light dark:hover:text-text-dark transition-colors"
-                                href="privacy.html">Privacy Policy</a></li>
-                        <li><a class="text-sm text-text-light-muted dark:text-text-dark-muted hover:text-text-light dark:hover:text-text-dark transition-colors"
-                                href="terms.html">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div
-                class="border-t border-border-light dark:border-border-dark pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p class="text-xs text-text-light-muted dark:text-text-dark-muted">© 2026 SIT Archive. All rights
                     reserved.</p>
-                <div class="flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-green-500"></span>
-                    <span class="text-xs text-text-light-muted dark:text-text-dark-muted">System Operational</span>
-                </div>
             </div>
         </div>
     </footer>
 
     <script>
+        document.getElementById('feedback-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const type = document.getElementById('type').value;
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !type || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const emailSubject = encodeURIComponent(`SIT Archive Feedback: ${type}`);
+
+            const emailBody = encodeURIComponent(`Hi SIT Archive Team,
+
+I'd like to share the following feedback:
+
+👤 FROM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name: ${name}
+Email: ${email}
+
+📋 FEEDBACK DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Type: ${type}
+
+💬 MESSAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${message}
+
+Thanks for maintaining SIT Archive!`);
+
+            window.location.href = `mailto:students.sit.archive@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+        });
+
         document.getElementById('mobile-menu-btn').addEventListener('click', function () {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
@@ -451,43 +441,6 @@
             if (icon) icon.textContent = isDark ? 'light_mode' : 'dark_mode';
             if (iconMobile) iconMobile.textContent = isDark ? 'light_mode' : 'dark_mode';
         }
-
-        // Handle form submit — show success state, hide form
-        document.getElementById('feedback-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var form = this;
-
-            // Basic validation
-            var name = document.getElementById('name').value.trim();
-            var email = document.getElementById('email').value.trim();
-            var type = document.getElementById('type').value;
-            var message = document.getElementById('message').value.trim();
-
-            if (!name || !email || !type || !message) return;
-
-            var btn = document.getElementById('submit-btn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span> Sending...';
-
-            // Submit via fetch to FormSubmit
-            var data = new FormData(form);
-            fetch(form.action, {
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            })
-            .then(function(r) {
-                document.getElementById('form-card').classList.add('hidden');
-                var msg = document.getElementById('success-msg');
-                msg.classList.remove('hidden');
-                msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            })
-            .catch(function() {
-                btn.disabled = false;
-                btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">send</span> Send Feedback';
-                alert('Something went wrong. Please try again or email us directly at students.sit.archive@gmail.com');
-            });
-        });
     </script>
 
     <!-- Animation Controller -->
